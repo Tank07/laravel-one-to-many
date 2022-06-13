@@ -17,10 +17,14 @@ class PostSeeder extends Seeder
     public function run(Faker $faker)
     {
 
+        
+        $category_ids = Category::pluck('id')->toArray();
+
         for ($i = 0; $i < 10; $i++){
             $post = new Post();
+            $post->category_id = Arr::random($category_ids);
             $post->title = $faker->text(10);
-            $post->content = $faker->paragraph(3);
+            $post->content = $faker->paragraph(2);
             $post->image = $faker->imageUrl(250, 250);
             $post->slug = Str::slug( $post->title, '-');
             $post->save();
